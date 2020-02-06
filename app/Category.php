@@ -8,6 +8,11 @@ class Category extends Model
 {
     public function jobs()
     {
-        return $this->hasMany('App\JobNotification','name','employer_name');
+        return $this->hasMany('App\Notification');
     }
+
+//    public function employers()
+//    {
+//        return $this->hasMany('App\Employers');
+//    }
 }

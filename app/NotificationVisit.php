@@ -8,6 +8,6 @@ class NotificationVisit extends Model
 {
     public function notification()
     {
-        return $this->belongsTo('App\JobNotification');
+        return $this->belongsTo('App\Notification');
     }
 }

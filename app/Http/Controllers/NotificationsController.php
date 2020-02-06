@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\JobNotification;
+use App\Notification;
 use App\NotificationVisit;
 use Illuminate\Http\Request;
 
@@ -10,14 +10,14 @@ class NotificationsController extends Controller
 {
     public function getAllJobs()
     {
-        $jobs = JobNotification::paginate(20);
+        $jobs = Notification::paginate(20);
 
         return view('jobs')->with(compact('jobs'));
     }
 
     public function getJob($slug)
     {
-        $job = JobNotification::where('slug',$slug)->first();
+        $job = Notification::where('slug',$slug)->first();
 
         $visit = new NotificationVisit();
 

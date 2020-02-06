@@ -8,6 +8,11 @@ class Employer extends Model
 {
     public function jobs()
     {
-        return $this->hasMany('App\JobNotification','name','employer_name');
+        return $this->hasMany('App\Notification');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
 }

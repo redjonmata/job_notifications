@@ -15,10 +15,11 @@ class CreateJobNotificationsTable extends Migration
     {
         Schema::create('job_notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title', 100);
-            $table->string('slug',150)->unique();
+            $table->string('title', 150);
+            $table->string('slug',150);
+            $table->longText('description');
             $table->string('employer_name',50);
-            $table->longText('url');
+            $table->longText('url')->unique(300);
             $table->timestamp('job_date')->nullable();
             $table->timestamp('created_at')->nullable();
         });
