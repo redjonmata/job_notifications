@@ -13,5 +13,5 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/jobs', 'NotificationsController@getAllJobs');
-Route::get('/job/{slug}', 'NotificationsController@getJob');
+Route::get('/jobs', 'NotificationController@getAllJobs');
+Route::get('/job/{slug}', 'NotificationController@getJob');

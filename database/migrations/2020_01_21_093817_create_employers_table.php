@@ -17,16 +17,15 @@ class CreateEmployersTable extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100);
-            $table->string('slug',150);
-            $table->string('city',100);
-            $table->string('country',100);
-            $table->string('address',100);
+            $table->string('slug',100);
+            $table->string('city',50);
+            $table->string('country',50);
+            $table->string('address',150);
             $table->string('phone',100);
-            $table->string('fax',100);
             $table->string('mobile_phone',100);
-            $table->string('field',100);
-            $table->string('specialized_field',100);
-            $table->string('image',100);
+            $table->string('fax',100);
+            $table->integer('category_id');
+            $table->string('image');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

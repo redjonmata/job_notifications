@@ -6,7 +6,7 @@ use App\Notification;
 use App\NotificationVisit;
 use Illuminate\Http\Request;
 
-class NotificationsController extends Controller
+class NotificationController extends Controller
 {
     public function getAllJobs()
     {
