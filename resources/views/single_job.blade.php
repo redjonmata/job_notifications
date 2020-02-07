@@ -43,7 +43,7 @@
                         <div class="col-xl-3 col-lg-2">
                             <div class="logo">
                                 <a href="/">
-                                    <img src="img/logo.png" alt="">
+                                    <img src="/img/logo.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -60,13 +60,8 @@
                                                 <li><a href="elements.html">elements</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="/blog">Blog</a></li>
+                                        <li><a href="/contact">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -114,14 +109,16 @@
                 <div class="job_details_header">
                     <div class="single_jobs white-bg d-flex justify-content-between">
                         <div class="jobs_left d-flex align-items-center">
-                            <div class="thumb">
-                                <img src="img/svg_icon/1.svg" alt="">
-                            </div>
-                            <div class="jobs_conetent">
+                            <img style="width: 100px;height: auto;" src="{{ $job->employer->image }}" alt="">
+                            <div style="margin-left: 15px" class="jobs_conetent">
                                 <a href="#"><h4>{{ $job->title }}</h4></a>
                                 <div class="links_locat d-flex align-items-center">
                                     <div class="location">
-                                        <p> <i class="fa fa-map-marker"></i> California, USA</p>
+                                        @if(!empty($job->employer->city) && !empty($job->employer->country))
+                                            <p> <i class="fa fa-map-marker"></i> {{$job->employer->city . ", " . $job->employer->country }}</p>
+                                        @else
+                                            <p> <i class="fa fa-map-marker"></i> Tiranë, Shqipëri </p>
+                                        @endif
                                     </div>
                                     <div class="location">
                                         <p> <i class="fa fa-clock-o"></i> Part-time</p>
@@ -223,7 +220,11 @@
                             <li>Published on: <span>{{ $job->job_date }}</span></li>
                             <li>Vacancy: <span>2 Position</span></li>
                             <li>Salary: <span>50k - 120k/y</span></li>
-                            <li>Location: <span>California, USA</span></li>
+                            @if(!empty($job->employer->city) && !empty($job->employer->country))
+                                <li>Location: <span>{{$job->employer->city . ", " . $job->employer->country }}</span></li>
+                            @else
+                                <li>Location: <span>Tiranë, Shqipëri</span></li>
+                            @endif
                             <li>Job Nature: <span> Full-time</span></li>
                         </ul>
                     </div>

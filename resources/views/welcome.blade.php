@@ -60,13 +60,8 @@
                                                 <li><a href="elements.html">elements</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="/blog">Blog</a></li>
+                                        <li><a href="/contact">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -158,7 +153,7 @@
                     <span>Popular Search:</span>
                     <ul>
                         @foreach($categories as $category)
-                            <li><a href="{{ '/tag/' . $category->category->name }}">{{ $category->category->name }}</a></li>
+                            <li><a href="{{ '/tag/' . $category->category->slug }}">{{ $category->category->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -182,7 +177,7 @@
             @foreach($categories as $category)
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
-                        <a href="{{ '/tag/' . $category->category->name }}"><h4>{{ $category->category->name }}</h4></a>
+                        <a href="{{ '/tag/' . $category->category->slug }}"><h4>{{ $category->category->name }}</h4></a>
                         <p> <span>{{ $category->total }}</span> Available position</p>
                     </div>
                 </div>
@@ -203,7 +198,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="brouse_job text-right">
-                    <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
+                    <a href="/jobs" class="boxed-btn4">Browse More Job</a>
                 </div>
             </div>
         </div>
@@ -212,11 +207,9 @@
                 @foreach($visits as $visit)
                     <div class="col-lg-12 col-md-12">
                         <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="{{ $visit->notification->employer->image }}" alt="">
-                                </div>
-                                <div class="jobs_conetent">
+                            <div style=" display: block;" class="jobs_left d-flex align-items-center">
+                                <img style="width: 100px;height: auto;" src="{{ $visit->notification->employer->image }}" alt="">
+                                <div style="margin-left: 15px" class="jobs_conetent">
                                     <a href="{{ '/job/' . $visit->notification->slug }}"><h4>{{ $visit->notification->title }}</h4></a>
                                     <div class="links_locat d-flex align-items-center">
                                         <div class="location">
@@ -263,7 +256,7 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="brouse_job text-right">
-                    <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
+                    <a href="/jobs" class="boxed-btn4">Browse More Job</a>
                 </div>
             </div>
         </div>
@@ -271,9 +264,7 @@
             @foreach($companies as $company)
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_company">
-                        <div style="width: 50px;height: 50px">
-                            <img src="{{ $company->employer->image }}" alt="">
-                        </div>
+                        <img style="width: 100px;height: auto" src="{{ $company->employer->image }}" alt="">
                         <a style="white-space: nowrap;" href="jobs.html"><h3>{{ $company->employer->name }}</h3></a>
                         <p> <span>{{ $company->total }}</span> Available position</p>
                     </div>

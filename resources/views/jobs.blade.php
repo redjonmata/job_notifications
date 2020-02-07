@@ -44,7 +44,7 @@
                         <div class="col-xl-3 col-lg-2">
                             <div class="logo">
                                 <a href="/">
-                                    <img src="img/logo.png" alt="">
+                                    <img src="/img/logo.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -61,13 +61,8 @@
                                                 <li><a href="elements.html">elements</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="/blog">Blog</a></li>
+                                        <li><a href="/contact">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -219,10 +214,8 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="single_jobs white-bg d-flex justify-content-between">
                                     <div class="jobs_left d-flex align-items-center">
-                                        <div style="width: 50px;height: 50px">
-                                            <img src="{{ $job->employer->image }}" alt="">
-                                        </div>
-                                        <div class="jobs_conetent">
+                                        <img style="width: 100px;height: auto;" src="{{ $job->employer->image }}" alt="">
+                                        <div style="margin-left: 15px" class="jobs_conetent">
                                             <a href="{{ '/job/'.$job->slug }}"><h4>{{ $job->title }}</h4></a>
                                             <div class="links_locat d-flex align-items-center">
                                                 <div class="location">
@@ -243,7 +236,7 @@
                                             <a style="float: right; position: relative" class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
                                         </div>
                                         <div class="date">
-                                            <p style="white-space: nowrap; margin-top: 60px;">Date: {{ $job->job_date }}</p>
+                                            <p style="white-space: nowrap; margin-top: 60px;">Date: {{ \Carbon\Carbon::parse($job->job_date)->diffForhumans() }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -252,9 +245,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-{{--                            <div class="pagination_wrap">--}}
-                                {{ $jobs->links() }}
-{{--                            </div>--}}
+                            {{ $jobs->links() }}
                         </div>
                     </div>
                 </div>
