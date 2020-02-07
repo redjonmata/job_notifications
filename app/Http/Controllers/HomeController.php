@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Employer;
-use App\Helpers\Helper;
 use App\Notification;
 use App\NotificationVisit;
 use Illuminate\Http\Request;
@@ -12,6 +11,21 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
         $categories = Employer::select('category_id', DB::raw('count(*) as total'))
@@ -42,5 +56,10 @@ class HomeController extends Controller
                                     ->get();
 
         return view('welcome')->with(compact('categories','companies','visits','locations','dropCategories'));
+    }
+
+    public function home()
+    {
+        return view('home');
     }
 }
