@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Notification;
 use App\NotificationVisit;
 use Illuminate\Http\Request;
@@ -10,9 +11,10 @@ class NotificationController extends Controller
 {
     public function getAllJobs()
     {
-        $jobs = Notification::paginate(20);
+        $jobs = Notification::paginate(10);
+        $dropCategories = Category::where('id','!=',1)->get();
 
-        return view('jobs')->with(compact('jobs'));
+        return view('jobs1')->with(compact('jobs','dropCategories'));
     }
 
     public function getJob($slug)

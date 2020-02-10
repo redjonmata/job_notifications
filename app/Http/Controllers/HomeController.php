@@ -6,6 +6,7 @@ use App\Category;
 use App\Employer;
 use App\Notification;
 use App\NotificationVisit;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -46,7 +47,7 @@ class HomeController extends Controller
         $companies = Notification::select('employer_id', DB::raw('count(*) as total'))
                                 ->groupBy('employer_id')
                                 ->orderBy('total','DESC')
-                                ->limit(4)
+                                ->limit(6)
                                 ->get();
 
         $visits = NotificationVisit::select('notification_id', DB::raw('count(*) as total'))
@@ -55,7 +56,10 @@ class HomeController extends Controller
                                     ->limit(4)
                                     ->get();
 
-        return view('welcome')->with(compact('categories','companies','visits','locations','dropCategories'));
+        $totalJobs = Notification::all()->count();
+        $totalEmployers = Employer::all()->count();
+
+        return view('welcome1')->with(compact('categories','companies','visits','locations','dropCategories','totalJobs','totalEmployers'));
     }
 
     public function home()
