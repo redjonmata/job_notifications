@@ -21,7 +21,9 @@ Route::get('/contact', 'ContactController@showContact');
 Route::get('/blog', 'BlogController@showBlogs');
 Route::get('/blog/{slug}', 'BlogController@showBlog');
 
-Route::post('/search','SearchController@search');
+Route::get('/search/company/{company}','SearchController@search')->middleware('removeemptyquerystring');
+
+Route::get('/search','SearchController@search')->middleware('removeemptyquerystring')->name('search');
 
 Auth::routes();
 

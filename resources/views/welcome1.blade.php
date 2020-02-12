@@ -254,7 +254,7 @@
 
             <div class="category-grid">
                 @foreach($companies as $company)
-                    <a href="job-list-1.html">
+                    <a href="{{ '/search/company/'. $company->employer->slug }}">
                         <img style="width: 100px;height: auto" src="{{ $company->employer->image }}" alt="">
                         <h6>{{ $company->employer->name }}</h6>
                         <p>Total jobs: {{ $company->total }}</p>

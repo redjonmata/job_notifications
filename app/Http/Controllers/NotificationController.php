@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    public function getAllJobs()
+    public function getAllJobs(Request $request)
     {
+        $count = Notification::all()->count();
         $jobs = Notification::paginate(10);
         $dropCategories = Category::where('id','!=',1)->get();
+        $selectedCategory = 'Select Category';
 
-        return view('jobs1')->with(compact('jobs','dropCategories'));
+        return view('jobs1')->with(compact('jobs','count','dropCategories','selectedCategory'));
     }
 
     public function getJob($slug)

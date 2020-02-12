@@ -115,37 +115,38 @@
     </div>
 
     <div class="container">
-        <form action="/search" method="POST">
-            {{ csrf_field() }}
+        <form action="{{ route('search') }}" method="GET" id="form" name="form" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-3">
-                    <input name="keyword" type="text" class="form-control" placeholder="Keyword: job title, skills, or company">
+                    <input name="keyword" type="text" class="form-control" placeholder="Keyword: job title, skills, or company" value="{{ request()->input('keyword') }}">
                 </div>
 
                 <div class="form-group col-xs-12 col-sm-3">
-                    <input name="location" type="text" class="form-control" placeholder="Location: city, state or zip">
+                    <input name="location" type="text" class="form-control" placeholder="Location: city, state or zip" value="{{ request()->input('location') }}">
                 </div>
 
                 <div class="form-group col-xs-12 col-sm-3">
-                    <select name="category" class="form-control selectpicker">
-                        <option value="">All categories</option>
+                    <select name="category" class="form-control">
+                        <option value="">Select category</option>
+                        <option value="{{ request()->input('category') }}" selected>{{ $selectedCategory }}</option>
                         @foreach($dropCategories as $category)
-                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group col-xs-12 col-sm-3">
-                    <select name="category" class="form-control selectpicker">
-                        <option value="newest">Sort (Date newest) </option>
-                        <option value="oldest">Sort (Date oldest) </option>
+                    <select name="sort" class="form-control">
+                        <option value="desc">Sort (Date newest) </option>
+                        <option value="asc">Sort (Date oldest) </option>
                     </select>
                 </div>
 
             </div>
 
             <div class="button-group">
+                <a href="/reset-jobs" class="btn btn-danger">Reset filter</a>
                 <div class="action-buttons">
                     <button class="btn btn-primary">Apply filter</button>
                 </div>
@@ -167,7 +168,7 @@
 
                 <div class="col-xs-12">
                     <br>
-                    <h5>We found <strong>357</strong> matches, you're watching <i>10</i> to <i>20</i></h5>
+                    <h5>We found <strong>{{ $count }}</strong> matches.</h5>
                 </div>
 
                 <!-- Job item -->
@@ -186,11 +187,9 @@
                             <footer>
                                 <ul class="details cols-3">
                                     <li>
-                                        <i class="fa fa-map-marker"></i>
                                         @if(!empty($job->employer->city) && !empty($job->employer->country))
+                                            <i class="fa fa-map-marker"></i>
                                             <span>{{$job->employer->city . ", " . $job->employer->country }}</span>
-                                        @else
-                                            <span>Tiranë, Shqipëri</span>
                                         @endif
                                     </li>
                                 </ul>
