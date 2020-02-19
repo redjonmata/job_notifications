@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/notifications','NotificationController@index');
+Route::post('/notifications','NotificationController@store');
+Route::get('/notifications/{id}','NotificationController@show');
+Route::put('/notifications/{id}','NotificationController@update');
+Route::delete('/notifications{id}','NotificationController@delete');

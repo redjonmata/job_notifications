@@ -3,28 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Notification;
-use App\NotificationVisit;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    public function getAllJobs()
+    public function index()
     {
-        $jobs = Notification::paginate(20);
+        $tasks = Notification::paginate(10);
 
-        return view('jobs')->with(compact('jobs'));
+        return response()->json($tasks);
     }
 
-    public function getJob($slug)
+    public function store(Request $request)
     {
-        $job = Notification::where('slug',$slug)->first();
+        $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'description' => 'required',
+            'employer_id' => 'required',
+            'url' => 'nullable'
+        ]);
 
-        $visit = new NotificationVisit();
+        $task = Notification::create($request->all());
 
-        $visit->notification_id = $job->id;
+        return response()->json([
+            'message' => 'Great success! New task created',
+            'notification' => $task
+        ]);
+    }
 
-        $visit->save();
+    public function show($id)
+    {
+        $notification = Notification::find($id);
 
-        return view('single_job')->with(compact('job'));
+        return response()->json($notification);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'nullable',
+            'slug' => 'nullable',
+            'description' => 'nullable',
+            'employer_id' => 'nullable',
+            'url' => 'nullable'
+        ]);
+
+        $notification = Notification::find($id);
+
+        $notification->update($request->all());
+
+        return response()->json([
+            'message' => 'Great success! Task updated',
+            'notification' => $notification
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $notification = Notification::find($id);
+
+        $notification->delete();
+
+        return response()->json([
+            'message' => 'Successfully deleted task!'
+        ]);
     }
 }
