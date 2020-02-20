@@ -27,7 +27,7 @@ class NotificationController extends Controller
         $task = Notification::create($request->all());
 
         return response()->json([
-            'message' => 'Great success! New task created',
+            'message' => 'New notification created!',
             'notification' => $task
         ]);
     }
@@ -54,7 +54,7 @@ class NotificationController extends Controller
         $notification->update($request->all());
 
         return response()->json([
-            'message' => 'Great success! Task updated',
+            'message' => 'Notification updated!',
             'notification' => $notification
         ]);
     }
@@ -63,10 +63,16 @@ class NotificationController extends Controller
     {
         $notification = Notification::find($id);
 
+        if (empty($notification)) {
+            return response()->json([
+                'message' => 'Couldn\'t delete notification. Notification does not exist!'
+            ]);
+        }
+
         $notification->delete();
 
         return response()->json([
-            'message' => 'Successfully deleted task!'
+            'message' => 'Successfully deleted notification!'
         ]);
     }
 }

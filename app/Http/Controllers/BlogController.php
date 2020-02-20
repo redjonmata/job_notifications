@@ -7,17 +7,70 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function showBlogs()
+    public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(10);
 
-        return view('blog')->with(compact('blogs'));
+        return response()->json($blogs);
     }
 
-    public function showBlog($slug)
+    public function store(Request $request)
     {
-        $blog = Blog::where('slug',$slug)->first();
+        $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'description' => 'required',
+            'image' => 'required'
+        ]);
 
-        return view('single_blog')->with(compact('blog'));
+        $blog = Blog::create($request->all());
+
+        return response()->json([
+            'message' => 'New blog created!',
+            'blog' => $blog
+        ]);
+    }
+
+    public function show($id)
+    {
+        $notification = Blog::find($id);
+
+        return response()->json($notification);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'nullable',
+            'slug' => 'nullable',
+            'description' => 'nullable',
+            'image' => 'nullable'
+        ]);
+
+        $blog = Blog::find($id);
+
+        $blog->update($request->all());
+
+        return response()->json([
+            'message' => 'Blog updated!',
+            'blog' => $blog
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $blog = Blog::find($id);
+
+        if (empty($blog)) {
+            return response()->json([
+                'message' => 'Couldn\'t delete blog. Blog does not exist!'
+            ]);
+        }
+
+        $blog->delete();
+
+        return response()->json([
+            'message' => 'Successfully deleted task!'
+        ]);
     }
 }

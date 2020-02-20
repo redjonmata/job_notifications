@@ -47,9 +47,4 @@ class HomeController extends Controller
 
         return view('welcome')->with(compact('categories','companies','visits','locations','dropCategories'));
     }
-
-    public function home()
-    {
-        return view('home');
-    }
 }

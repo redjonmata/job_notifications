@@ -13,8 +13,25 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/notifications','NotificationController@index');
-Route::post('/notifications','NotificationController@store');
-Route::get('/notifications/{id}','NotificationController@show');
-Route::put('/notifications/{id}','NotificationController@update');
-Route::delete('/notifications{id}','NotificationController@delete');
+Route::group(['prefix' => 'notifications'], function () {
+    Route::get('/','NotificationController@index');
+    Route::post('/','NotificationController@store');
+    Route::get('/{id}','NotificationController@show');
+    Route::put('/{id}','NotificationController@update');
+    Route::delete('/{id}','NotificationController@destroy');
+});
+
+Route::group(['prefix' => 'blog'], function () {
+    Route::get('/','BlogController@index');
+    Route::post('/','BlogController@store');
+    Route::get('/{id}','BlogController@show');
+    Route::put('/{id}','BlogController@update');
+    Route::delete('/{id}','BlogController@destroy');
+});
+
+Route::group(['prefix' => 'employers'], function () {
+    Route::get('/','EmployerController@index');
+    Route::post('/','EmployerController@store');
+    Route::get('/{id}','EmployerController@show');
+    Route::put('/{id}','EmployerController@update');
+});
