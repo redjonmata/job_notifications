@@ -11,7 +11,7 @@ class EmployerController extends Controller
     {
         $employers = Employer::paginate(10);
 
-        return response()->json($employers);
+        return response()->json($employers,200);
     }
 
     public function store(Request $request)
@@ -33,14 +33,14 @@ class EmployerController extends Controller
         return response()->json([
             'message' => 'New employer created!',
             'employer' => $employer
-        ]);
+        ],201);
     }
 
     public function show($id)
     {
         $employer = Employer::find($id);
 
-        return response()->json($employer);
+        return response()->json($employer,200);
     }
 
     public function update(Request $request, $id)
@@ -65,6 +65,6 @@ class EmployerController extends Controller
         return response()->json([
             'message' => 'employer updated!',
             'employer' => $employer
-        ]);
+        ],200);
     }
 }

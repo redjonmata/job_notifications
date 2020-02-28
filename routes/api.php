@@ -35,3 +35,4 @@ Route::group(['prefix' => 'employers'], function () {
     Route::get('/{id}','EmployerController@show');
     Route::put('/{id}','EmployerController@update');
 });
+

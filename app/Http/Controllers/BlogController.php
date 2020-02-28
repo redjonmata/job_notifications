@@ -11,7 +11,7 @@ class BlogController extends Controller
     {
         $blogs = Blog::paginate(10);
 
-        return response()->json($blogs);
+        return response()->json($blogs,200);
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class BlogController extends Controller
         return response()->json([
             'message' => 'New blog created!',
             'blog' => $blog
-        ]);
+        ],201);
     }
 
     public function show($id)
@@ -54,7 +54,7 @@ class BlogController extends Controller
         return response()->json([
             'message' => 'Blog updated!',
             'blog' => $blog
-        ]);
+        ],200);
     }
 
     public function destroy($id)
@@ -64,13 +64,13 @@ class BlogController extends Controller
         if (empty($blog)) {
             return response()->json([
                 'message' => 'Couldn\'t delete blog. Blog does not exist!'
-            ]);
+            ],404);
         }
 
         $blog->delete();
 
         return response()->json([
             'message' => 'Successfully deleted task!'
-        ]);
+        ],200);
     }
 }

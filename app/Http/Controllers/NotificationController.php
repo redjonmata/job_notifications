@@ -9,9 +9,9 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $tasks = Notification::paginate(10);
+        $notifications = Notification::paginate(10);
 
-        return response()->json($tasks);
+        return response()->json($notifications,200);
     }
 
     public function store(Request $request)
@@ -24,19 +24,25 @@ class NotificationController extends Controller
             'url' => 'nullable'
         ]);
 
-        $task = Notification::create($request->all());
+        $notification = Notification::create($request->all());
 
         return response()->json([
             'message' => 'New notification created!',
-            'notification' => $task
-        ]);
+            'notification' => $notification
+        ],201);
     }
 
     public function show($id)
     {
         $notification = Notification::find($id);
 
-        return response()->json($notification);
+        if (empty($notification)) {
+            return response()->json([
+                'message' => 'Notification does not exist'
+            ],404);
+        }
+
+        return response()->json($notification,200);
     }
 
     public function update(Request $request, $id)
@@ -56,7 +62,7 @@ class NotificationController extends Controller
         return response()->json([
             'message' => 'Notification updated!',
             'notification' => $notification
-        ]);
+        ],200);
     }
 
     public function destroy($id)
@@ -66,7 +72,7 @@ class NotificationController extends Controller
         if (empty($notification)) {
             return response()->json([
                 'message' => 'Couldn\'t delete notification. Notification does not exist!'
-            ]);
+            ],404);
         }
 
         $notification->delete();
