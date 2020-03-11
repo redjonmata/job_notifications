@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-
-Route::get('/jobs', 'NotificationController@getAllJobs');
-Route::get('/job/{slug}', 'NotificationController@getJob');
-
-Route::get('/contact', 'ContactController@showContact');
-
-Route::get('/blog', 'BlogController@showBlogs');
-Route::get('/blog/{slug}', 'BlogController@showBlog');
-
-Route::get('/home', 'HomeController@home')->name('home');
+//Route::get('/', 'HomeController@index');
+//
+//Route::get('/jobs', 'NotificationController@getAllJobs');
+//Route::get('/job/{slug}', 'NotificationController@getJob');
+//
+//Route::get('/contact', 'ContactController@showContact');
+//
+//Route::get('/blog', 'BlogController@showBlogs');
+//Route::get('/blog/{slug}', 'BlogController@showBlog');
+//
+//Route::get('/home', 'HomeController@home')->name('home');

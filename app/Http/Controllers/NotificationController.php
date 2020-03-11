@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\NotificationResource;
 use App\Notification;
 use Illuminate\Http\Request;
 
@@ -11,25 +12,27 @@ class NotificationController extends Controller
     {
         $notifications = Notification::paginate(10);
 
-        return response()->json($notifications,200);
+        return NotificationResource::collection($notifications);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'slug' => 'required|max:255',
-            'description' => 'required',
-            'employer_id' => 'required',
-            'url' => 'nullable'
-        ]);
+//        $request->validate([
+//            'title' => 'required|max:255',
+//            'slug' => 'required|max:255',
+//            'description' => 'required',
+//            'employer_id' => 'required',
+//            'category_id' => 'required',
+//            'url' => 'nullable',
+//            'is_by_jobnet' => 'nullable',
+//        ]);
 
-        $notification = Notification::create($request->all());
+        $notification = 'test';
 
         return response()->json([
             'message' => 'New notification created!',
             'notification' => $notification
-        ],201);
+        ],200);
     }
 
     public function show($id)
@@ -42,7 +45,7 @@ class NotificationController extends Controller
             ],404);
         }
 
-        return response()->json($notification,200);
+        return new NotificationResource($notification->fresh());
     }
 
     public function update(Request $request, $id)
@@ -52,7 +55,8 @@ class NotificationController extends Controller
             'slug' => 'nullable',
             'description' => 'nullable',
             'employer_id' => 'nullable',
-            'url' => 'nullable'
+            'url' => 'nullable',
+            'is_by_jobnet' => 'nullable',
         ]);
 
         $notification = Notification::find($id);
@@ -61,7 +65,7 @@ class NotificationController extends Controller
 
         return response()->json([
             'message' => 'Notification updated!',
-            'notification' => $notification
+            'notification' => new NotificationResource($notification->fresh())
         ],200);
     }
 

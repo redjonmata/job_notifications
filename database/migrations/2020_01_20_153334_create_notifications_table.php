@@ -20,10 +20,10 @@ class CreateNotificationsTable extends Migration
             $table->longText('description');
             $table->integer('employer_id');
             $table->string('url', 300)->unique();
+            $table->string('category_id', 300)->unique();
             $table->tinyInteger('is_by_jobnet');
             $table->timestamp('job_date')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
